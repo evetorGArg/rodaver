@@ -1,0 +1,1729 @@
+﻿<!DOCTYPE html> 
+<html> 
+	<head> 
+		<meta http-equiv="X-UA-Compatible" content="IE=edge; charset=utf-8"> 
+		<title>Generations Tree</title> 
+<style>
+.modal { display: none; position: fixed; z-index: 1; padding-top: 2%; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);} 
+.modal-content { background-color: #e8eca4; margin: auto; padding: 0px 0px 0px 0px; border: 1px solid #888; width: 70%; height: 87%; } 
+#modalContent { border: 0; width: 100%; height: 98%; } 
+.modal-frame { border: 0; width: 100%; height: 100%; } 
+.buttonClose { color: #aaaaaa; float: right; font-size: 28px; font-weight: bold; margin-right: 10px; } 
+.buttonClose:hover, .buttonClose:focus { color: #000; text-decoration: none; cursor: pointer; } 
+.buttonBack { color: #aaaaaa; float: left; font-size: 28px; font-weight: bold; margin-right: 10px; } 
+.buttonBack:hover, .buttonBack:focus { color: #000; text-decoration: none; cursor: pointer; } 
+
+ body {  
+
+ }
+	    html, body {margin: 0px; padding: 0px; width: 100%; height: 100%; border: 0; outline: 0; } 
+	    svg {overflow: hidden} 
+a {pointer-events: none;}
+	  </style> 
+
+   <script type="text/javascript"> 
+       function setScale(mW, mH) { var se = document.getElementById("svg2"); if (se != null) { se.setAttribute("width", mW);	se.setAttribute("height", mH); } }
+   </script> 
+	</head> 
+<body>
+<div id="persModalForm" class="modal"> 
+	<div class="modal-content"> 
+		<span title="Назад" class="buttonBack">&#9664;</span> 
+		<span title="Закрыть" class="buttonClose">&#10006;</span> 
+		<div id="modalContent"></div> 
+	</div> 
+</div> 
+<script> 
+	var currpos = 0; 
+	var modal = document.getElementById("persModalForm"); 
+	function closemodal() { 
+		modal.style.display = "none"; 
+		currpos = 0; 
+	} 
+	var backspan = document.getElementsByClassName("buttonBack")[0]; 
+	backspan.onclick = function() { 
+		if( currpos > 1 ) { 
+			window.history.back(); 
+			currpos -= 2; 
+		} 
+		else  
+			closemodal(); 
+	} 
+	var closespan = document.getElementsByClassName("buttonClose")[0]; 
+	closespan.onclick = function() { closemodal(); } 
+	nodeclick = function(i) { 
+		document.getElementById("modalContent").innerHTML = '<iframe id="idetail" onload="currpos+=1;" src="Древо предварительно.html_files/person_' + i + '.html" class="modal-frame"></iframe>'; 
+		modal.style.display = "block"; 
+	} 
+	window.onclick = function(event) { 
+		if (event.target == modal) 
+			closemodal(); 
+	} 
+</script> 
+
+		<span class="center"> 
+		<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" 
+width="3638" height="1750" 
+viewBox="0 0 3638 1750" 
+preserve-AspectRatio="none" id="svg2" version="1.1"  >
+<title>Generations Tree</title> 
+<desc>Description Generation Tree</desc> 
+<style type="text/css">
+<![CDATA[
+.textTitle { fill: #000000; font-family: Monotype Corsiva; font-size: 36pt; font-style: italic; font-weight: normal; } 
+.textFooter { fill: black; font-family: Arial; font-size: 10pt; font-style: normal; font-weight: normal; } 
+.textStat { fill: black; font-family: Arial; font-size: 8pt; font-style: normal; font-weight: normal; } 
+.textCard { fill: #000000; font-family: Arial; font-size: 9pt; font-style: normal; font-weight: normal; } 
+.textCardFav { fill: #000000; font-family: Arial; font-size: 9pt; font-style: normal; font-weight: bold; } 
+.rowGenEven { fill: #FFFFFF; stroke:none; } 
+.rowGenOdd  { fill: #FFFDF0; stroke:none; } 
+.lineTree { fill: none; stroke:#000000; stroke-width:2; stroke-dasharray:1,0; } 
+.circleTree { fill:#000000; stroke:#000000; } 
+.lineTreeDisable { fill: none; stroke:#cfcece; stroke-width:2; stroke-dasharray:1,0; } 
+.circleTreeDisable { fill:#cfcece; stroke:#cfcece; } 
+.lineTreeAdop { fill: none; stroke:#000000; stroke-width:2; stroke-dasharray:1,0; } 
+.lineTreeAdopDisable { fill: none; stroke:#cfcece; stroke-width:2; stroke-dasharray:1,0; } 
+.divPath { fill:#FF0000; stroke:#FF0000; } 
+.divCircle { fill:#FF0000; stroke:#FF0000; } 
+.divRect { fill:#FF0000; stroke:#FF0000; } 
+.divPathDisable { fill:#cfcece; stroke:#cfcece; } 
+.divCircleDisable { fill:#cfcece; stroke:#cfcece; } 
+.divRectDisable { fill:#cfcece; stroke:#cfcece; } 
+.lineBeetwenPart { fill: none; stroke:#000000; stroke-width:2; stroke-dasharray:1,0; } 
+.lineBeetwenPartDisable { fill: none; stroke:#cfcece; stroke-width:2; stroke-dasharray:1,0; } 
+.lineBeetwenPartRazvod { fill: none; stroke:#000000; stroke-width:2; stroke-dasharray:2,2; } 
+.lineBeetwenPartRazvodDisable { fill: none; stroke:#cfcece; stroke-width:2; stroke-dasharray:2,2; } 
+.lineBeetwenPartNoReg { fill: none; stroke:#000000; stroke-width:2; stroke-dasharray:1,0; } 
+.lineBeetwenPartNoRegDisable { fill: none; stroke:#cfcece; stroke-width:2; stroke-dasharray:1,0; } 
+.cardM { fill: #C2DBF5; stroke:#000000; stroke-width:2; stroke-dasharray:1,0; } 
+.cardF { fill: #FFE1F0; stroke:#000000; stroke-width:2; stroke-dasharray:1,0;} 
+.cardR { fill: #FFCC99; stroke:#000000; stroke-width:2; stroke-dasharray:1,0;} 
+.stRectText { fill:none; stroke:none; stroke-linecap:round; stroke-linejoin:round; stroke-width:0.75 }
+.stRectCard { fill:none; cursor:pointer; pointer-events: visible;}
+tspan { text-anchor:middle; dominant-baseline: middle; } 
+.static { cursor: default; }
+.draggable { cursor: move; }
+]]>
+</style> 
+<defs> 
+<defs> 
+    <pattern id="smallGrid" width="8" height="8" patternUnits="userSpaceOnUse"> 
+      <path d="M 8 0 L 0 0 0 8" fill="none" stroke="gray" stroke-width="0.5"/> 
+    </pattern> 
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"> 
+      <rect width="80" height="80" fill="url(#smallGrid)"/> 
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="gray" stroke-width="1"/> 
+    </pattern> 
+</defs> 
+<filter id="f3" x="0" y="0" width="200%" height="200%"> 
+   <feOffset result="offOut" in="SourceAlpha" dx="5" dy="5" /> 
+   <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" /> 
+   <feBlend in="SourceGraphic" in2="blurOut" mode="normal" /> 
+</filter>
+<g id="rect_M" transform="scale(1)"> 
+   <rect x="0"  y="0" width="130" height="190" id="rectM" class="cardM" filter="url(#f3)" />  
+</g> 
+<g id="rect_F" transform="scale(1)"> 
+   <rect x="0"  y="0" width="130" height="190" id="rectF" class="cardF" filter="url(#f3)" />  
+</g> 
+<g id="rect_R" transform="scale(1)"> 
+   <rect x="0"  y="0" width="130" height="190" id="rectR" class="cardR" filter="url(#f3)" />  
+</g> 
+</defs> 
+<rect x="0" y="0" width="3638" height="250" class="rowGenOdd" /> 
+<rect x="0" y="250" width="3638" height="250" class="rowGenEven" /> 
+<rect x="0" y="500" width="3638" height="250" class="rowGenOdd" /> 
+<rect x="0" y="750" width="3638" height="250" class="rowGenEven" /> 
+<rect x="0" y="1000" width="3638" height="250" class="rowGenOdd" /> 
+<rect x="0" y="1250" width="3638" height="250" class="rowGenEven" /> 
+<rect x="0" y="1500" width="3638" height="250" class="rowGenOdd" /> 
+<rect id="gridRect" style="display: none;" x= "0" y="0" width="3638" height="1750" fill="url(#grid)"/>
+<g id="areaRect" transform="translate(0,0)">
+<g class="g_node" id="N1" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_R" x="1445" y="1280" />
+<g transform="translate(1467.700000,1281.000000)">  <image clip-path="url(#test_cp1)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp1"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1445" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(1)"/>
+<g id="shape1" v:mID="1" v:groupContext="shape">
+  <rect x="1446.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_1" xlink:title="Открыть меню">
+<clipPath id="cliptxt1"><rect x="1446.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt1)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1510.000000" y="1407.800000"><tspan    >Аверков </tspan></tspan><v:newlineChar/>
+  <tspan x="1510.000000" y="1419.800000"><tspan    >Григорий </tspan><tspan    >Леонидович </tspan></tspan><v:newlineChar/>
+  <tspan x="1510.000000" y="1431.800000"><tspan    >19.12.1991 </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N2" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="1295" y="1280" />
+<g transform="translate(1317.700000,1281.000000)">  <image clip-path="url(#test_cp2)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp2"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1295" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(2)"/>
+<g id="shape2" v:mID="2" v:groupContext="shape">
+  <rect x="1296.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_2" xlink:title="Открыть меню">
+<clipPath id="cliptxt2"><rect x="1296.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt2)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1360.000000" y="1407.800000"><tspan    >Аверкова </tspan></tspan><v:newlineChar/>
+  <tspan x="1360.000000" y="1419.800000"><tspan    >Анастасия </tspan><tspan    >Викторовна </tspan></tspan><v:newlineChar/>
+  <tspan x="1360.000000" y="1431.800000"><tspan    >20.12.1984 </tspan></tspan><v:newlineChar/>
+  <tspan x="1360.000000" y="1443.800000"><tspan  font-style="italic"  >Жена </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N3" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="1295" y="1530" />
+<g transform="translate(1317.700000,1531.000000)">  <image clip-path="url(#test_cp3)" xlink:href="Древо предварительно.html_files\images\girl.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp3"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1295" y="1530" width="130" height="190" class="stRectCard" onclick="nodeclick(3)"/>
+<g id="shape3" v:mID="3" v:groupContext="shape">
+  <rect x="1296.000000" y="1645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_3" xlink:title="Открыть меню">
+<clipPath id="cliptxt3"><rect x="1296.000000" y="1645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt3)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1360.000000" y="1657.800000"><tspan    >Аверкова </tspan></tspan><v:newlineChar/>
+  <tspan x="1360.000000" y="1669.800000"><tspan    >Екатерина </tspan><tspan    >Григорьевна </tspan></tspan><v:newlineChar/>
+  <tspan x="1360.000000" y="1681.800000"><tspan    >12.05.2015 </tspan></tspan><v:newlineChar/>
+  <tspan x="1360.000000" y="1693.800000"><tspan  font-style="italic"  >Дочь </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N4" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="1445" y="1530" />
+<g transform="translate(1467.700000,1531.000000)">  <image clip-path="url(#test_cp4)" xlink:href="Древо предварительно.html_files\images\boy.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp4"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1445" y="1530" width="130" height="190" class="stRectCard" onclick="nodeclick(4)"/>
+<g id="shape4" v:mID="4" v:groupContext="shape">
+  <rect x="1446.000000" y="1645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_4" xlink:title="Открыть меню">
+<clipPath id="cliptxt4"><rect x="1446.000000" y="1645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt4)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1510.000000" y="1657.800000"><tspan    >Аверков </tspan></tspan><v:newlineChar/>
+  <tspan x="1510.000000" y="1669.800000"><tspan    >Александр </tspan><tspan    >Григорьевич </tspan></tspan><v:newlineChar/>
+  <tspan x="1510.000000" y="1681.800000"><tspan    >02.12.2021 </tspan></tspan><v:newlineChar/>
+  <tspan x="1510.000000" y="1693.800000"><tspan  font-style="italic"  >Сын </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N13" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="1595" y="1280" />
+<g transform="translate(1617.700000,1281.000000)">  <image clip-path="url(#test_cp13)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp13"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1595" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(13)"/>
+<g id="shape13" v:mID="13" v:groupContext="shape">
+  <rect x="1596.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_13" xlink:title="Открыть меню">
+<clipPath id="cliptxt13"><rect x="1596.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt13)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1660.000000" y="1407.800000"><tspan    >Аверков </tspan></tspan><v:newlineChar/>
+  <tspan x="1660.000000" y="1419.800000"><tspan    >Пётр </tspan><tspan    >Леонидович </tspan></tspan><v:newlineChar/>
+  <tspan x="1660.000000" y="1431.800000"><tspan    >24.01.1999 </tspan></tspan><v:newlineChar/>
+  <tspan x="1660.000000" y="1443.800000"><tspan  font-style="italic"  >Брат </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N5" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="1445" y="1030" />
+<g transform="translate(1467.700000,1031.000000)">  <image clip-path="url(#test_cp5)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp5"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1445" y="1030" width="130" height="190" class="stRectCard" onclick="nodeclick(5)"/>
+<g id="shape5" v:mID="5" v:groupContext="shape">
+  <rect x="1446.000000" y="1145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_5" xlink:title="Открыть меню">
+<clipPath id="cliptxt5"><rect x="1446.000000" y="1145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt5)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1510.000000" y="1157.800000"><tspan    >Аверков </tspan></tspan><v:newlineChar/>
+  <tspan x="1510.000000" y="1169.800000"><tspan    >Леонид </tspan><tspan    >Петрович </tspan></tspan><v:newlineChar/>
+  <tspan x="1510.000000" y="1181.800000"><tspan    >11.10.1967 </tspan></tspan><v:newlineChar/>
+  <tspan x="1510.000000" y="1193.800000"><tspan  font-style="italic"  >Отец </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N6" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="1595" y="1030" />
+<g transform="translate(1617.700000,1031.000000)">  <image clip-path="url(#test_cp6)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp6"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1595" y="1030" width="130" height="190" class="stRectCard" onclick="nodeclick(6)"/>
+<g id="shape6" v:mID="6" v:groupContext="shape">
+  <rect x="1596.000000" y="1145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_6" xlink:title="Открыть меню">
+<clipPath id="cliptxt6"><rect x="1596.000000" y="1145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt6)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1660.000000" y="1157.800000"><tspan    >Аверкова </tspan></tspan><v:newlineChar/>
+  <tspan x="1660.000000" y="1169.800000"><tspan    >Наталья </tspan><tspan    >Николаевна </tspan></tspan><v:newlineChar/>
+  <tspan x="1660.000000" y="1181.800000"><tspan    >31.08.1969 </tspan></tspan><v:newlineChar/>
+  <tspan x="1660.000000" y="1193.800000"><tspan  font-style="italic"  >Мать </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N30" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="1070" y="1030" />
+<g transform="translate(1092.700000,1031.000000)">  <image clip-path="url(#test_cp30)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp30"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1070" y="1030" width="130" height="190" class="stRectCard" onclick="nodeclick(30)"/>
+<g id="shape30" v:mID="30" v:groupContext="shape">
+  <rect x="1071.000000" y="1145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_30" xlink:title="Открыть меню">
+<clipPath id="cliptxt30"><rect x="1071.000000" y="1145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt30)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1135.000000" y="1157.800000"><tspan    >Проскурнова </tspan></tspan><v:newlineChar/>
+  <tspan x="1135.000000" y="1169.800000"><tspan    >Нина </tspan><tspan    >Петровна </tspan></tspan><v:newlineChar/>
+  <tspan x="1135.000000" y="1181.800000"><tspan    >09.10.1959 </tspan></tspan><v:newlineChar/>
+  <tspan x="1135.000000" y="1193.800000"><tspan  font-style="italic"  >Тетя </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N36" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="1145" y="1280" />
+<g transform="translate(1167.700000,1281.000000)">  <image clip-path="url(#test_cp36)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp36"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M1146.000000 1300.000000 L1146.000000 1310.000000 L1175.000000 1281.000000 L1165.000000 1281.000000 L1146.000000 1300.000000 Z" stroke="black" />
+<rect x="1145" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(36)"/>
+<g id="shape36" v:mID="36" v:groupContext="shape">
+  <rect x="1146.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_36" xlink:title="Открыть меню">
+<clipPath id="cliptxt36"><rect x="1146.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt36)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1210.000000" y="1407.800000"><tspan    >Проскурнов </tspan></tspan><v:newlineChar/>
+  <tspan x="1210.000000" y="1419.800000"><tspan    >Сергей </tspan><tspan    >Александрович </tspan></tspan><v:newlineChar/>
+  <tspan x="1210.000000" y="1431.800000"><tspan    >01.03.1980 </tspan></tspan><v:newlineChar/>
+  <tspan x="1210.000000" y="1443.800000"><tspan    >29.10.2000 </tspan></tspan><v:newlineChar/>
+  <tspan x="1210.000000" y="1455.800000"><tspan  font-style="italic"  >Двоюродный брат </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N35" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="995" y="1280" />
+<g transform="translate(1017.700000,1281.000000)">  <image clip-path="url(#test_cp35)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp35"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="995" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(35)"/>
+<g id="shape35" v:mID="35" v:groupContext="shape">
+  <rect x="996.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_35" xlink:title="Открыть меню">
+<clipPath id="cliptxt35"><rect x="996.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt35)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1060.000000" y="1407.800000"><tspan    >Проскурнов </tspan></tspan><v:newlineChar/>
+  <tspan x="1060.000000" y="1419.800000"><tspan    >Дмитрий </tspan><tspan    >Александрович </tspan></tspan><v:newlineChar/>
+  <tspan x="1060.000000" y="1431.800000"><tspan    >12.05.1987 </tspan></tspan><v:newlineChar/>
+  <tspan x="1060.000000" y="1443.800000"><tspan  font-style="italic"  >Двоюродный брат </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N32" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="845" y="1030" />
+<g transform="translate(867.700000,1031.000000)">  <image clip-path="url(#test_cp32)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp32"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="845" y="1030" width="130" height="190" class="stRectCard" onclick="nodeclick(32)"/>
+<g id="shape32" v:mID="32" v:groupContext="shape">
+  <rect x="846.000000" y="1145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_32" xlink:title="Открыть меню">
+<clipPath id="cliptxt32"><rect x="846.000000" y="1145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt32)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="910.000000" y="1157.800000"><tspan    >Волкова </tspan></tspan><v:newlineChar/>
+  <tspan x="910.000000" y="1169.800000"><tspan    >Наталья </tspan><tspan    >Петровна </tspan></tspan><v:newlineChar/>
+  <tspan x="910.000000" y="1181.800000"><tspan    >10.02.1960 </tspan></tspan><v:newlineChar/>
+  <tspan x="910.000000" y="1193.800000"><tspan  font-style="italic"  >Тетя </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N37" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="845" y="1280" />
+<g transform="translate(867.700000,1281.000000)">  <image clip-path="url(#test_cp37)" xlink:href="Древо предварительно.html_files\images\pers_37.jpg" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp37"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="845" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(37)"/>
+<g id="shape37" v:mID="37" v:groupContext="shape">
+  <rect x="846.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_37" xlink:title="Открыть меню">
+<clipPath id="cliptxt37"><rect x="846.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt37)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="910.000000" y="1407.800000"><tspan    >Павлова </tspan></tspan><v:newlineChar/>
+  <tspan x="910.000000" y="1419.800000"><tspan    >Екатерина </tspan></tspan><v:newlineChar/>
+  <tspan x="910.000000" y="1431.800000"><tspan    >23.02.1982 </tspan></tspan><v:newlineChar/>
+  <tspan x="910.000000" y="1443.800000"><tspan  font-style="italic"  >Двоюродная сестра </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N31" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="620" y="1030" />
+<g transform="translate(642.700000,1031.000000)">  <image clip-path="url(#test_cp31)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp31"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="620" y="1030" width="130" height="190" class="stRectCard" onclick="nodeclick(31)"/>
+<g id="shape31" v:mID="31" v:groupContext="shape">
+  <rect x="621.000000" y="1145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_31" xlink:title="Открыть меню">
+<clipPath id="cliptxt31"><rect x="621.000000" y="1145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt31)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="685.000000" y="1157.800000"><tspan    >Аверков </tspan></tspan><v:newlineChar/>
+  <tspan x="685.000000" y="1169.800000"><tspan    >Михаил </tspan><tspan    >Петрович </tspan></tspan><v:newlineChar/>
+  <tspan x="685.000000" y="1181.800000"><tspan    >10.07.1962 </tspan></tspan><v:newlineChar/>
+  <tspan x="685.000000" y="1193.800000"><tspan  font-style="italic"  >Дядя </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N34" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="695" y="1280" />
+<g transform="translate(717.700000,1281.000000)">  <image clip-path="url(#test_cp34)" xlink:href="Древо предварительно.html_files\images\pers_34.jpg" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp34"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="695" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(34)"/>
+<g id="shape34" v:mID="34" v:groupContext="shape">
+  <rect x="696.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_34" xlink:title="Открыть меню">
+<clipPath id="cliptxt34"><rect x="696.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt34)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="760.000000" y="1407.800000"><tspan    >Шнайдер </tspan></tspan><v:newlineChar/>
+  <tspan x="760.000000" y="1419.800000"><tspan    >Елена </tspan><tspan    >Михайловна </tspan></tspan><v:newlineChar/>
+  <tspan x="760.000000" y="1431.800000"><tspan    >03.11.1987 </tspan></tspan><v:newlineChar/>
+  <tspan x="760.000000" y="1443.800000"><tspan  font-style="italic"  >Двоюродная сестра </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N53" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="770" y="1530" />
+<g transform="translate(792.700000,1531.000000)">  <image clip-path="url(#test_cp53)" xlink:href="Древо предварительно.html_files\images\boy.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp53"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="770" y="1530" width="130" height="190" class="stRectCard" onclick="nodeclick(53)"/>
+<g id="shape53" v:mID="53" v:groupContext="shape">
+  <rect x="771.000000" y="1645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_53" xlink:title="Открыть меню">
+<clipPath id="cliptxt53"><rect x="771.000000" y="1645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt53)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="835.000000" y="1657.800000"><tspan    >Шнайдер </tspan></tspan><v:newlineChar/>
+  <tspan x="835.000000" y="1669.800000"><tspan    >Вадим </tspan></tspan><v:newlineChar/>
+  <tspan x="835.000000" y="1681.800000"><tspan    >01.01.2012 </tspan></tspan><v:newlineChar/>
+  <tspan x="835.000000" y="1693.800000"><tspan  font-style="italic"  >Двоюродный племянник </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N52" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="620" y="1530" />
+<g transform="translate(642.700000,1531.000000)">  <image clip-path="url(#test_cp52)" xlink:href="Древо предварительно.html_files\images\boy.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp52"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="620" y="1530" width="130" height="190" class="stRectCard" onclick="nodeclick(52)"/>
+<g id="shape52" v:mID="52" v:groupContext="shape">
+  <rect x="621.000000" y="1645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_52" xlink:title="Открыть меню">
+<clipPath id="cliptxt52"><rect x="621.000000" y="1645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt52)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="685.000000" y="1657.800000"><tspan    >Шнайдер </tspan></tspan><v:newlineChar/>
+  <tspan x="685.000000" y="1669.800000"><tspan    >Ярослав </tspan></tspan><v:newlineChar/>
+  <tspan x="685.000000" y="1681.800000"><tspan    >01.01.2015 </tspan></tspan><v:newlineChar/>
+  <tspan x="685.000000" y="1693.800000"><tspan  font-style="italic"  >Двоюродный племянник </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N33" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="545" y="1280" />
+<g transform="translate(567.700000,1281.000000)">  <image clip-path="url(#test_cp33)" xlink:href="Древо предварительно.html_files\images\pers_33.jpg" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp33"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="545" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(33)"/>
+<g id="shape33" v:mID="33" v:groupContext="shape">
+  <rect x="546.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_33" xlink:title="Открыть меню">
+<clipPath id="cliptxt33"><rect x="546.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt33)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="610.000000" y="1407.800000"><tspan    >Аверков </tspan></tspan><v:newlineChar/>
+  <tspan x="610.000000" y="1419.800000"><tspan    >Алексей </tspan><tspan    >Михайлович </tspan></tspan><v:newlineChar/>
+  <tspan x="610.000000" y="1431.800000"><tspan    >13.04.1989 </tspan></tspan><v:newlineChar/>
+  <tspan x="610.000000" y="1443.800000"><tspan  font-style="italic"  >Двоюродный брат </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N19" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="207" y="1030" />
+<g transform="translate(229.700000,1031.000000)">  <image clip-path="url(#test_cp19)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp19"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="207" y="1030" width="130" height="190" class="stRectCard" onclick="nodeclick(19)"/>
+<g id="shape19" v:mID="19" v:groupContext="shape">
+  <rect x="208.000000" y="1145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_19" xlink:title="Открыть меню">
+<clipPath id="cliptxt19"><rect x="208.000000" y="1145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt19)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="272.000000" y="1157.800000"><tspan    >Дикетаева </tspan></tspan><v:newlineChar/>
+  <tspan x="272.000000" y="1169.800000"><tspan    >Галина </tspan><tspan    >Петровна </tspan></tspan><v:newlineChar/>
+  <tspan x="272.000000" y="1181.800000"><tspan    >30.09.1962 </tspan></tspan><v:newlineChar/>
+  <tspan x="272.000000" y="1193.800000"><tspan  font-style="italic"  >Тетя </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N20" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="395" y="1280" />
+<g transform="translate(417.700000,1281.000000)">  <image clip-path="url(#test_cp20)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp20"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="395" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(20)"/>
+<g id="shape20" v:mID="20" v:groupContext="shape">
+  <rect x="396.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_20" xlink:title="Открыть меню">
+<clipPath id="cliptxt20"><rect x="396.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt20)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="460.000000" y="1407.800000"><tspan    >Дикетаев </tspan></tspan><v:newlineChar/>
+  <tspan x="460.000000" y="1419.800000"><tspan    >Марат </tspan><tspan    >Муратович </tspan></tspan><v:newlineChar/>
+  <tspan x="460.000000" y="1431.800000"><tspan    >31.05.1982 </tspan></tspan><v:newlineChar/>
+  <tspan x="460.000000" y="1443.800000"><tspan  font-style="italic"  >Двоюродный брат </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N51" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="395" y="1530" />
+<g transform="translate(417.700000,1531.000000)">  <image clip-path="url(#test_cp51)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp51"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="395" y="1530" width="130" height="190" class="stRectCard" onclick="nodeclick(51)"/>
+<g id="shape51" v:mID="51" v:groupContext="shape">
+  <rect x="396.000000" y="1645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_51" xlink:title="Открыть меню">
+<clipPath id="cliptxt51"><rect x="396.000000" y="1645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt51)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="460.000000" y="1657.800000"><tspan    >Дикетаев </tspan></tspan><v:newlineChar/>
+  <tspan x="460.000000" y="1669.800000"><tspan    >Ануар </tspan><tspan    >Маратович </tspan></tspan><v:newlineChar/>
+  <tspan x="460.000000" y="1681.800000"><tspan    >24.05.2004 </tspan></tspan><v:newlineChar/>
+  <tspan x="460.000000" y="1693.800000"><tspan  font-style="italic"  >Двоюродный племянник </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N21" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="170" y="1280" />
+<g transform="translate(192.700000,1281.000000)">  <image clip-path="url(#test_cp21)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp21"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="170" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(21)"/>
+<g id="shape21" v:mID="21" v:groupContext="shape">
+  <rect x="171.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_21" xlink:title="Открыть меню">
+<clipPath id="cliptxt21"><rect x="171.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt21)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="235.000000" y="1407.800000"><tspan    >Дикетаев </tspan></tspan><v:newlineChar/>
+  <tspan x="235.000000" y="1419.800000"><tspan    >Николай </tspan><tspan    >Муратович </tspan></tspan><v:newlineChar/>
+  <tspan x="235.000000" y="1431.800000"><tspan    >18.07.1984 </tspan></tspan><v:newlineChar/>
+  <tspan x="235.000000" y="1443.800000"><tspan  font-style="italic"  >Двоюродный брат </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N49" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="245" y="1530" />
+<g transform="translate(267.700000,1531.000000)">  <image clip-path="url(#test_cp49)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp49"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="245" y="1530" width="130" height="190" class="stRectCard" onclick="nodeclick(49)"/>
+<g id="shape49" v:mID="49" v:groupContext="shape">
+  <rect x="246.000000" y="1645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_49" xlink:title="Открыть меню">
+<clipPath id="cliptxt49"><rect x="246.000000" y="1645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt49)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="310.000000" y="1657.800000"><tspan    >Дикетаев </tspan></tspan><v:newlineChar/>
+  <tspan x="310.000000" y="1669.800000"><tspan    >Мурат </tspan><tspan    >Николаевич </tspan></tspan><v:newlineChar/>
+  <tspan x="310.000000" y="1681.800000"><tspan    >13.02.2003 </tspan></tspan><v:newlineChar/>
+  <tspan x="310.000000" y="1693.800000"><tspan  font-style="italic"  >Двоюродный племянник </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N50" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="95" y="1530" />
+<g transform="translate(117.700000,1531.000000)">  <image clip-path="url(#test_cp50)" xlink:href="Древо предварительно.html_files\images\girl.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp50"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="95" y="1530" width="130" height="190" class="stRectCard" onclick="nodeclick(50)"/>
+<g id="shape50" v:mID="50" v:groupContext="shape">
+  <rect x="96.000000" y="1645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_50" xlink:title="Открыть меню">
+<clipPath id="cliptxt50"><rect x="96.000000" y="1645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt50)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="160.000000" y="1657.800000"><tspan    >Дикетаева </tspan></tspan><v:newlineChar/>
+  <tspan x="160.000000" y="1669.800000"><tspan    >Дарина </tspan><tspan    >Николаевна </tspan></tspan><v:newlineChar/>
+  <tspan x="160.000000" y="1681.800000"><tspan    >12.12.2012 </tspan></tspan><v:newlineChar/>
+  <tspan x="160.000000" y="1693.800000"><tspan  font-style="italic"  >Двоюродная племянница </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N22" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="20" y="1280" />
+<g transform="translate(42.700000,1281.000000)">  <image clip-path="url(#test_cp22)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp22"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="20" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(22)"/>
+<g id="shape22" v:mID="22" v:groupContext="shape">
+  <rect x="21.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_22" xlink:title="Открыть меню">
+<clipPath id="cliptxt22"><rect x="21.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt22)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="85.000000" y="1407.800000"><tspan    >Дикетаева </tspan></tspan><v:newlineChar/>
+  <tspan x="85.000000" y="1419.800000"><tspan    >Татьяна </tspan><tspan    >Муратовна </tspan></tspan><v:newlineChar/>
+  <tspan x="85.000000" y="1431.800000"><tspan    >15.02.1989 </tspan></tspan><v:newlineChar/>
+  <tspan x="85.000000" y="1443.800000"><tspan  font-style="italic"  >Двоюродная сестра </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N9" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="751" y="780" />
+<g transform="translate(773.700000,781.000000)">  <image clip-path="url(#test_cp9)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp9"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M752.000000 800.000000 L752.000000 810.000000 L781.000000 781.000000 L771.000000 781.000000 L752.000000 800.000000 Z" stroke="black" />
+<rect x="751" y="780" width="130" height="190" class="stRectCard" onclick="nodeclick(9)"/>
+<g id="shape9" v:mID="9" v:groupContext="shape">
+  <rect x="752.000000" y="895.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_9" xlink:title="Открыть меню">
+<clipPath id="cliptxt9"><rect x="752.000000" y="895.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt9)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="816.000000" y="907.800000"><tspan    >Аверков </tspan></tspan><v:newlineChar/>
+  <tspan x="816.000000" y="919.800000"><tspan    >Пётр </tspan><tspan    >Михайлович </tspan></tspan><v:newlineChar/>
+  <tspan x="816.000000" y="931.800000"><tspan    >23.03.1932 </tspan></tspan><v:newlineChar/>
+  <tspan x="816.000000" y="943.800000"><tspan    >28.05.1999 </tspan></tspan><v:newlineChar/>
+  <tspan x="816.000000" y="955.800000"><tspan  font-style="italic"  >Дед </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N10" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="901" y="780" />
+<g transform="translate(923.700000,781.000000)">  <image clip-path="url(#test_cp10)" xlink:href="Древо предварительно.html_files\images\oldmiss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp10"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="901" y="780" width="130" height="190" class="stRectCard" onclick="nodeclick(10)"/>
+<g id="shape10" v:mID="10" v:groupContext="shape">
+  <rect x="902.000000" y="895.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_10" xlink:title="Открыть меню">
+<clipPath id="cliptxt10"><rect x="902.000000" y="895.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt10)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="966.000000" y="907.800000"><tspan    >Аверкова </tspan></tspan><v:newlineChar/>
+  <tspan x="966.000000" y="919.800000"><tspan    >Александра </tspan><tspan    >Алексеевна </tspan></tspan><v:newlineChar/>
+  <tspan x="966.000000" y="931.800000"><tspan    >19.08.1945 </tspan></tspan><v:newlineChar/>
+  <tspan x="966.000000" y="943.800000"><tspan  font-style="italic"  >Бабушка </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N62" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="676" y="530" />
+<g transform="translate(698.700000,531.000000)">  <image clip-path="url(#test_cp62)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp62"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M677.000000 550.000000 L677.000000 560.000000 L706.000000 531.000000 L696.000000 531.000000 L677.000000 550.000000 Z" stroke="black" />
+<rect x="676" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(62)"/>
+<g id="shape62" v:mID="62" v:groupContext="shape">
+  <rect x="677.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_62" xlink:title="Открыть меню">
+<clipPath id="cliptxt62"><rect x="677.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt62)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="741.000000" y="657.800000"><tspan    >Аверков </tspan></tspan><v:newlineChar/>
+  <tspan x="741.000000" y="669.800000"><tspan    >Михаил </tspan><tspan    >Петрович </tspan></tspan><v:newlineChar/>
+  <tspan x="741.000000" y="681.800000"><tspan  font-style="italic"  >Прадед </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N63" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="826" y="530" />
+<g transform="translate(848.700000,531.000000)">  <image clip-path="url(#test_cp63)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp63"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M827.000000 550.000000 L827.000000 560.000000 L856.000000 531.000000 L846.000000 531.000000 L827.000000 550.000000 Z" stroke="black" />
+<rect x="826" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(63)"/>
+<g id="shape63" v:mID="63" v:groupContext="shape">
+  <rect x="827.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_63" xlink:title="Открыть меню">
+<clipPath id="cliptxt63"><rect x="827.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt63)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="891.000000" y="657.800000"><tspan    >Аверкова </tspan></tspan><v:newlineChar/>
+  <tspan x="891.000000" y="669.800000"><tspan    >Просковья </tspan></tspan><v:newlineChar/>
+  <tspan x="891.000000" y="681.800000"><tspan  font-style="italic"  >Прабабушка </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N64" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="676" y="280" />
+<g transform="translate(698.700000,281.000000)">  <image clip-path="url(#test_cp64)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp64"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M677.000000 300.000000 L677.000000 310.000000 L706.000000 281.000000 L696.000000 281.000000 L677.000000 300.000000 Z" stroke="black" />
+<rect x="676" y="280" width="130" height="190" class="stRectCard" onclick="nodeclick(64)"/>
+<g id="shape64" v:mID="64" v:groupContext="shape">
+  <rect x="677.000000" y="395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_64" xlink:title="Открыть меню">
+<clipPath id="cliptxt64"><rect x="677.000000" y="395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt64)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="741.000000" y="407.800000"><tspan    >Аверков </tspan></tspan><v:newlineChar/>
+  <tspan x="741.000000" y="419.800000"><tspan    >Пётр </tspan><tspan    >Артёмович </tspan></tspan><v:newlineChar/>
+  <tspan x="741.000000" y="431.800000"><tspan  font-style="italic"  >Прапрадед </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N65" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="676" y="30" />
+<g transform="translate(698.700000,31.000000)">  <image clip-path="url(#test_cp65)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp65"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M677.000000 50.000000 L677.000000 60.000000 L706.000000 31.000000 L696.000000 31.000000 L677.000000 50.000000 Z" stroke="black" />
+<rect x="676" y="30" width="130" height="190" class="stRectCard" onclick="nodeclick(65)"/>
+<g id="shape65" v:mID="65" v:groupContext="shape">
+  <rect x="677.000000" y="145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_65" xlink:title="Открыть меню">
+<clipPath id="cliptxt65"><rect x="677.000000" y="145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt65)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="741.000000" y="157.800000"><tspan    >Аверков </tspan></tspan><v:newlineChar/>
+  <tspan x="741.000000" y="169.800000"><tspan    >Артём </tspan></tspan><v:newlineChar/>
+  <tspan x="741.000000" y="181.800000"><tspan  font-style="italic"  >Прапрапрадед </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N39" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="976" y="530" />
+<g transform="translate(998.700000,531.000000)">  <image clip-path="url(#test_cp39)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp39"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M977.000000 550.000000 L977.000000 560.000000 L1006.000000 531.000000 L996.000000 531.000000 L977.000000 550.000000 Z" stroke="black" />
+<rect x="976" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(39)"/>
+<g id="shape39" v:mID="39" v:groupContext="shape">
+  <rect x="977.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_39" xlink:title="Открыть меню">
+<clipPath id="cliptxt39"><rect x="977.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt39)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1041.000000" y="657.800000"><tspan    >Ткачёва </tspan></tspan><v:newlineChar/>
+  <tspan x="1041.000000" y="669.800000"><tspan    >Алексей </tspan><tspan    >Степанович </tspan></tspan><v:newlineChar/>
+  <tspan x="1041.000000" y="681.800000"><tspan    >20.02.1923 </tspan></tspan><v:newlineChar/>
+  <tspan x="1041.000000" y="693.800000"><tspan    >26.11.1990 </tspan></tspan><v:newlineChar/>
+  <tspan x="1041.000000" y="705.800000"><tspan  font-style="italic"  >Прадед </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N38" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="1126" y="530" />
+<g transform="translate(1148.700000,531.000000)">  <image clip-path="url(#test_cp38)" xlink:href="Древо предварительно.html_files\images\oldmiss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp38"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M1127.000000 550.000000 L1127.000000 560.000000 L1156.000000 531.000000 L1146.000000 531.000000 L1127.000000 550.000000 Z" stroke="black" />
+<rect x="1126" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(38)"/>
+<g id="shape38" v:mID="38" v:groupContext="shape">
+  <rect x="1127.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_38" xlink:title="Открыть меню">
+<clipPath id="cliptxt38"><rect x="1127.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt38)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1191.000000" y="657.800000"><tspan    >Ткачёва </tspan></tspan><v:newlineChar/>
+  <tspan x="1191.000000" y="669.800000"><tspan    >Мария </tspan><tspan    >Григорьевна </tspan></tspan><v:newlineChar/>
+  <tspan x="1191.000000" y="681.800000"><tspan    >30.12.1917 </tspan></tspan><v:newlineChar/>
+  <tspan x="1191.000000" y="693.800000"><tspan    >22.07.1991 </tspan></tspan><v:newlineChar/>
+  <tspan x="1191.000000" y="705.800000"><tspan  font-style="italic"  >Прабабушка </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N40" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="1051" y="280" />
+<g transform="translate(1073.700000,281.000000)">  <image clip-path="url(#test_cp40)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp40"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M1052.000000 300.000000 L1052.000000 310.000000 L1081.000000 281.000000 L1071.000000 281.000000 L1052.000000 300.000000 Z" stroke="black" />
+<rect x="1051" y="280" width="130" height="190" class="stRectCard" onclick="nodeclick(40)"/>
+<g id="shape40" v:mID="40" v:groupContext="shape">
+  <rect x="1052.000000" y="395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_40" xlink:title="Открыть меню">
+<clipPath id="cliptxt40"><rect x="1052.000000" y="395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt40)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1116.000000" y="407.800000"><tspan    >Степанов </tspan></tspan><v:newlineChar/>
+  <tspan x="1116.000000" y="419.800000"><tspan    >Григорий </tspan><tspan    >Ильич </tspan></tspan><v:newlineChar/>
+  <tspan x="1116.000000" y="431.800000"><tspan  font-style="italic"  >Прапрадед </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N41" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="1201" y="280" />
+<g transform="translate(1223.700000,281.000000)">  <image clip-path="url(#test_cp41)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp41"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M1202.000000 300.000000 L1202.000000 310.000000 L1231.000000 281.000000 L1221.000000 281.000000 L1202.000000 300.000000 Z" stroke="black" />
+<rect x="1201" y="280" width="130" height="190" class="stRectCard" onclick="nodeclick(41)"/>
+<g id="shape41" v:mID="41" v:groupContext="shape">
+  <rect x="1202.000000" y="395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_41" xlink:title="Открыть меню">
+<clipPath id="cliptxt41"><rect x="1202.000000" y="395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt41)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1266.000000" y="407.800000"><tspan    >Степанова </tspan></tspan><v:newlineChar/>
+  <tspan x="1266.000000" y="419.800000"><tspan    >Марфа </tspan><tspan    >Матвеевна </tspan></tspan><v:newlineChar/>
+  <tspan x="1266.000000" y="431.800000"><tspan  font-style="italic"  >Прапрабабушка </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N42" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="1820" y="1030" />
+<g transform="translate(1842.700000,1031.000000)">  <image clip-path="url(#test_cp42)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp42"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1820" y="1030" width="130" height="190" class="stRectCard" onclick="nodeclick(42)"/>
+<g id="shape42" v:mID="42" v:groupContext="shape">
+  <rect x="1821.000000" y="1145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_42" xlink:title="Открыть меню">
+<clipPath id="cliptxt42"><rect x="1821.000000" y="1145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt42)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1885.000000" y="1157.800000"><tspan    >Михалёв </tspan></tspan><v:newlineChar/>
+  <tspan x="1885.000000" y="1169.800000"><tspan    >Александр </tspan><tspan    >Николаевич </tspan></tspan><v:newlineChar/>
+  <tspan x="1885.000000" y="1181.800000"><tspan    >14.02.1974 </tspan></tspan><v:newlineChar/>
+  <tspan x="1885.000000" y="1193.800000"><tspan  font-style="italic"  >Дядя </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N43" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="1745" y="1280" />
+<g transform="translate(1767.700000,1281.000000)">  <image clip-path="url(#test_cp43)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp43"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1745" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(43)"/>
+<g id="shape43" v:mID="43" v:groupContext="shape">
+  <rect x="1746.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_43" xlink:title="Открыть меню">
+<clipPath id="cliptxt43"><rect x="1746.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt43)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1810.000000" y="1407.800000"><tspan    >Михалев </tspan></tspan><v:newlineChar/>
+  <tspan x="1810.000000" y="1419.800000"><tspan    >Николай </tspan><tspan    >Александрович </tspan></tspan><v:newlineChar/>
+  <tspan x="1810.000000" y="1431.800000"><tspan    >13.11.1994 </tspan></tspan><v:newlineChar/>
+  <tspan x="1810.000000" y="1443.800000"><tspan  font-style="italic"  >Двоюродный брат </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N44" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="1895" y="1280" />
+<g transform="translate(1917.700000,1281.000000)">  <image clip-path="url(#test_cp44)" xlink:href="Древо предварительно.html_files\images\girl.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp44"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="1895" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(44)"/>
+<g id="shape44" v:mID="44" v:groupContext="shape">
+  <rect x="1896.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_44" xlink:title="Открыть меню">
+<clipPath id="cliptxt44"><rect x="1896.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt44)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1960.000000" y="1407.800000"><tspan    >Михалёва </tspan></tspan><v:newlineChar/>
+  <tspan x="1960.000000" y="1419.800000"><tspan    >Карина </tspan><tspan    >Александровна </tspan></tspan><v:newlineChar/>
+  <tspan x="1960.000000" y="1431.800000"><tspan    >09.09.2007 </tspan></tspan><v:newlineChar/>
+  <tspan x="1960.000000" y="1443.800000"><tspan  font-style="italic"  >Двоюродная сестра </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N11" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="1632" y="780" />
+<g transform="translate(1654.700000,781.000000)">  <image clip-path="url(#test_cp11)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp11"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M1633.000000 800.000000 L1633.000000 810.000000 L1662.000000 781.000000 L1652.000000 781.000000 L1633.000000 800.000000 Z" stroke="black" />
+<rect x="1632" y="780" width="130" height="190" class="stRectCard" onclick="nodeclick(11)"/>
+<g id="shape11" v:mID="11" v:groupContext="shape">
+  <rect x="1633.000000" y="895.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_11" xlink:title="Открыть меню">
+<clipPath id="cliptxt11"><rect x="1633.000000" y="895.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt11)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1697.000000" y="907.800000"><tspan    >Михалёв </tspan></tspan><v:newlineChar/>
+  <tspan x="1697.000000" y="919.800000"><tspan    >Николай </tspan><tspan    >Григорьевич </tspan></tspan><v:newlineChar/>
+  <tspan x="1697.000000" y="931.800000"><tspan    >26.10.1946 </tspan></tspan><v:newlineChar/>
+  <tspan x="1697.000000" y="943.800000"><tspan    >18.02.1999 </tspan></tspan><v:newlineChar/>
+  <tspan x="1697.000000" y="955.800000"><tspan  font-style="italic"  >Дед </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N12" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="1782" y="780" />
+<g transform="translate(1804.700000,781.000000)">  <image clip-path="url(#test_cp12)" xlink:href="Древо предварительно.html_files\images\oldmiss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp12"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M1783.000000 800.000000 L1783.000000 810.000000 L1812.000000 781.000000 L1802.000000 781.000000 L1783.000000 800.000000 Z" stroke="black" />
+<rect x="1782" y="780" width="130" height="190" class="stRectCard" onclick="nodeclick(12)"/>
+<g id="shape12" v:mID="12" v:groupContext="shape">
+  <rect x="1783.000000" y="895.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_12" xlink:title="Открыть меню">
+<clipPath id="cliptxt12"><rect x="1783.000000" y="895.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt12)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1847.000000" y="907.800000"><tspan    >Михалёва </tspan></tspan><v:newlineChar/>
+  <tspan x="1847.000000" y="919.800000"><tspan    >Лидия </tspan><tspan    >Алексеевна </tspan></tspan><v:newlineChar/>
+  <tspan x="1847.000000" y="931.800000"><tspan    >09.04.1946 </tspan></tspan><v:newlineChar/>
+  <tspan x="1847.000000" y="943.800000"><tspan    >30.07.2020 </tspan></tspan><v:newlineChar/>
+  <tspan x="1847.000000" y="955.800000"><tspan  font-style="italic"  >Бабушка </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N18" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="2195" y="780" />
+<g transform="translate(2217.700000,781.000000)">  <image clip-path="url(#test_cp18)" xlink:href="Древо предварительно.html_files\images\oldmiss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp18"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="2195" y="780" width="130" height="190" class="stRectCard" onclick="nodeclick(18)"/>
+<g id="shape18" v:mID="18" v:groupContext="shape">
+  <rect x="2196.000000" y="895.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_18" xlink:title="Открыть меню">
+<clipPath id="cliptxt18"><rect x="2196.000000" y="895.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt18)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2260.000000" y="907.800000"><tspan    >Бобрик </tspan></tspan><v:newlineChar/>
+  <tspan x="2260.000000" y="919.800000"><tspan    >Валентина </tspan><tspan    >Григорьевна </tspan></tspan><v:newlineChar/>
+  <tspan x="2260.000000" y="931.800000"><tspan    >13.02.1949 </tspan></tspan><v:newlineChar/>
+  <tspan x="2260.000000" y="943.800000"><tspan  font-style="italic"  >Двоюродная бабушка </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N45" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2195" y="1030" />
+<g transform="translate(2217.700000,1031.000000)">  <image clip-path="url(#test_cp45)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp45"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="2195" y="1030" width="130" height="190" class="stRectCard" onclick="nodeclick(45)"/>
+<g id="shape45" v:mID="45" v:groupContext="shape">
+  <rect x="2196.000000" y="1145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_45" xlink:title="Открыть меню">
+<clipPath id="cliptxt45"><rect x="2196.000000" y="1145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt45)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2260.000000" y="1157.800000"><tspan    >Бальчев </tspan></tspan><v:newlineChar/>
+  <tspan x="2260.000000" y="1169.800000"><tspan    >Андрей </tspan><tspan    >Георгиевич </tspan></tspan><v:newlineChar/>
+  <tspan x="2260.000000" y="1181.800000"><tspan    >02.05.1973 </tspan></tspan><v:newlineChar/>
+  <tspan x="2260.000000" y="1193.800000"><tspan  font-style="italic"  >Двоюродный дядя </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N46" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2045" y="1280" />
+<g transform="translate(2067.700000,1281.000000)">  <image clip-path="url(#test_cp46)" xlink:href="Древо предварительно.html_files\images\pers_46.jpg" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp46"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="2045" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(46)"/>
+<g id="shape46" v:mID="46" v:groupContext="shape">
+  <rect x="2046.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_46" xlink:title="Открыть меню">
+<clipPath id="cliptxt46"><rect x="2046.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt46)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2110.000000" y="1407.800000"><tspan    >Бальчев </tspan></tspan><v:newlineChar/>
+  <tspan x="2110.000000" y="1419.800000"><tspan    >Кирилл </tspan><tspan    >Андреевич </tspan></tspan><v:newlineChar/>
+  <tspan x="2110.000000" y="1431.800000"><tspan    >22.06.2000 </tspan></tspan><v:newlineChar/>
+  <tspan x="2110.000000" y="1443.800000"><tspan  font-style="italic"  >Троюродный брат </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N47" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2195" y="1280" />
+<g transform="translate(2217.700000,1281.000000)">  <image clip-path="url(#test_cp47)" xlink:href="Древо предварительно.html_files\images\pers_47.jpg" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp47"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="2195" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(47)"/>
+<g id="shape47" v:mID="47" v:groupContext="shape">
+  <rect x="2196.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_47" xlink:title="Открыть меню">
+<clipPath id="cliptxt47"><rect x="2196.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt47)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2260.000000" y="1407.800000"><tspan    >Бальчев </tspan></tspan><v:newlineChar/>
+  <tspan x="2260.000000" y="1419.800000"><tspan    >Богдан </tspan><tspan    >Андреевич </tspan></tspan><v:newlineChar/>
+  <tspan x="2260.000000" y="1431.800000"><tspan    >14.06.2010 </tspan></tspan><v:newlineChar/>
+  <tspan x="2260.000000" y="1443.800000"><tspan  font-style="italic"  >Троюродный брат </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N48" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="2345" y="1280" />
+<g transform="translate(2367.700000,1281.000000)">  <image clip-path="url(#test_cp48)" xlink:href="Древо предварительно.html_files\images\pers_48.jpg" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp48"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="2345" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(48)"/>
+<g id="shape48" v:mID="48" v:groupContext="shape">
+  <rect x="2346.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_48" xlink:title="Открыть меню">
+<clipPath id="cliptxt48"><rect x="2346.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt48)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2410.000000" y="1407.800000"><tspan    >Бальчева </tspan></tspan><v:newlineChar/>
+  <tspan x="2410.000000" y="1419.800000"><tspan    >Дарина </tspan><tspan    >Андреевна </tspan></tspan><v:newlineChar/>
+  <tspan x="2410.000000" y="1431.800000"><tspan    >17.10.2014 </tspan></tspan><v:newlineChar/>
+  <tspan x="2410.000000" y="1443.800000"><tspan  font-style="italic"  >Троюродная сестра </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N14" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="1838" y="530" />
+<g transform="translate(1860.700000,531.000000)">  <image clip-path="url(#test_cp14)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp14"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M1839.000000 550.000000 L1839.000000 560.000000 L1868.000000 531.000000 L1858.000000 531.000000 L1839.000000 550.000000 Z" stroke="black" />
+<rect x="1838" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(14)"/>
+<g id="shape14" v:mID="14" v:groupContext="shape">
+  <rect x="1839.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_14" xlink:title="Открыть меню">
+<clipPath id="cliptxt14"><rect x="1839.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt14)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="1903.000000" y="657.800000"><tspan    >Михалёв </tspan></tspan><v:newlineChar/>
+  <tspan x="1903.000000" y="669.800000"><tspan    >Григорий </tspan><tspan    >Васильевич </tspan></tspan><v:newlineChar/>
+  <tspan x="1903.000000" y="681.800000"><tspan  font-style="italic"  >Прадед </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N15" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="1988" y="530" />
+<g transform="translate(2010.700000,531.000000)">  <image clip-path="url(#test_cp15)" xlink:href="Древо предварительно.html_files\images\oldmiss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp15"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M1989.000000 550.000000 L1989.000000 560.000000 L2018.000000 531.000000 L2008.000000 531.000000 L1989.000000 550.000000 Z" stroke="black" />
+<rect x="1988" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(15)"/>
+<g id="shape15" v:mID="15" v:groupContext="shape">
+  <rect x="1989.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_15" xlink:title="Открыть меню">
+<clipPath id="cliptxt15"><rect x="1989.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt15)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2053.000000" y="657.800000"><tspan    >Михалёва </tspan></tspan><v:newlineChar/>
+  <tspan x="2053.000000" y="669.800000"><tspan    >Евгения </tspan><tspan    >Андреевна </tspan></tspan><v:newlineChar/>
+  <tspan x="2053.000000" y="681.800000"><tspan    >07.01.1918 </tspan></tspan><v:newlineChar/>
+  <tspan x="2053.000000" y="693.800000"><tspan    >30.01.1997 </tspan></tspan><v:newlineChar/>
+  <tspan x="2053.000000" y="705.800000"><tspan  font-style="italic"  >Прабабушка </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N16" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2138" y="530" />
+<g transform="translate(2160.700000,531.000000)">  <image clip-path="url(#test_cp16)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp16"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M2139.000000 550.000000 L2139.000000 560.000000 L2168.000000 531.000000 L2158.000000 531.000000 L2139.000000 550.000000 Z" stroke="black" />
+<rect x="2138" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(16)"/>
+<g id="shape16" v:mID="16" v:groupContext="shape">
+  <rect x="2139.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_16" xlink:title="Открыть меню">
+<clipPath id="cliptxt16"><rect x="2139.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt16)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2203.000000" y="657.800000"><tspan    >Шильников </tspan></tspan><v:newlineChar/>
+  <tspan x="2203.000000" y="669.800000"><tspan    >Алексей </tspan><tspan    >Иванович </tspan></tspan><v:newlineChar/>
+  <tspan x="2203.000000" y="681.800000"><tspan  font-style="italic"  >Прадед </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N17" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="2288" y="530" />
+<g transform="translate(2310.700000,531.000000)">  <image clip-path="url(#test_cp17)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp17"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M2289.000000 550.000000 L2289.000000 560.000000 L2318.000000 531.000000 L2308.000000 531.000000 L2289.000000 550.000000 Z" stroke="black" />
+<rect x="2288" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(17)"/>
+<g id="shape17" v:mID="17" v:groupContext="shape">
+  <rect x="2289.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_17" xlink:title="Открыть меню">
+<clipPath id="cliptxt17"><rect x="2289.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt17)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2353.000000" y="657.800000"><tspan    >Корнева </tspan></tspan><v:newlineChar/>
+  <tspan x="2353.000000" y="669.800000"><tspan    >Надежда </tspan><tspan    >Сергеевна </tspan></tspan><v:newlineChar/>
+  <tspan x="2353.000000" y="681.800000"><tspan  font-style="italic"  >Прабабушка </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N27" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="2495" y="1280" />
+<g transform="translate(2517.700000,1281.000000)">  <image clip-path="url(#test_cp27)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp27"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="2495" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(27)"/>
+<g id="shape27" v:mID="27" v:groupContext="shape">
+  <rect x="2496.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_27" xlink:title="Открыть меню">
+<clipPath id="cliptxt27"><rect x="2496.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt27)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2560.000000" y="1407.800000"><tspan    >Пермякова </tspan></tspan><v:newlineChar/>
+  <tspan x="2560.000000" y="1419.800000"><tspan    >Наталья </tspan><tspan    >Викторовна </tspan></tspan><v:newlineChar/>
+  <tspan x="2560.000000" y="1431.800000"><tspan    >02.06.1991 </tspan></tspan><v:newlineChar/>
+  <tspan x="2560.000000" y="1443.800000"><tspan  font-style="italic"  >Свояченица </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N29" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2645" y="1280" />
+<g transform="translate(2667.700000,1281.000000)">  <image clip-path="url(#test_cp29)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp29"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="2645" y="1280" width="130" height="190" class="stRectCard" onclick="nodeclick(29)"/>
+<g id="shape29" v:mID="29" v:groupContext="shape">
+  <rect x="2646.000000" y="1395.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_29" xlink:title="Открыть меню">
+<clipPath id="cliptxt29"><rect x="2646.000000" y="1395.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt29)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2710.000000" y="1407.800000"><tspan    >Пермяков </tspan></tspan><v:newlineChar/>
+  <tspan x="2710.000000" y="1419.800000"><tspan    >Александр </tspan><tspan    >Владимирович </tspan></tspan><v:newlineChar/>
+  <tspan x="2710.000000" y="1431.800000"><tspan    >13.04.1991 </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N28" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2570" y="1530" />
+<g transform="translate(2592.700000,1531.000000)">  <image clip-path="url(#test_cp28)" xlink:href="Древо предварительно.html_files\images\boy.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp28"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="2570" y="1530" width="130" height="190" class="stRectCard" onclick="nodeclick(28)"/>
+<g id="shape28" v:mID="28" v:groupContext="shape">
+  <rect x="2571.000000" y="1645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_28" xlink:title="Открыть меню">
+<clipPath id="cliptxt28"><rect x="2571.000000" y="1645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt28)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2635.000000" y="1657.800000"><tspan    >Пермяков </tspan></tspan><v:newlineChar/>
+  <tspan x="2635.000000" y="1669.800000"><tspan    >Михаил </tspan><tspan    >Александрович </tspan></tspan><v:newlineChar/>
+  <tspan x="2635.000000" y="1681.800000"><tspan    >07.10.2022 </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N7" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2420" y="1030" />
+<g transform="translate(2442.700000,1031.000000)">  <image clip-path="url(#test_cp7)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp7"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="2420" y="1030" width="130" height="190" class="stRectCard" onclick="nodeclick(7)"/>
+<g id="shape7" v:mID="7" v:groupContext="shape">
+  <rect x="2421.000000" y="1145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_7" xlink:title="Открыть меню">
+<clipPath id="cliptxt7"><rect x="2421.000000" y="1145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt7)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2485.000000" y="1157.800000"><tspan    >Новиков </tspan></tspan><v:newlineChar/>
+  <tspan x="2485.000000" y="1169.800000"><tspan    >Виктор </tspan><tspan    >Ефимович </tspan></tspan><v:newlineChar/>
+  <tspan x="2485.000000" y="1181.800000"><tspan    >01.03.1960 </tspan></tspan><v:newlineChar/>
+  <tspan x="2485.000000" y="1193.800000"><tspan  font-style="italic"  >Тесть </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N8" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="2570" y="1030" />
+<g transform="translate(2592.700000,1031.000000)">  <image clip-path="url(#test_cp8)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp8"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<rect x="2570" y="1030" width="130" height="190" class="stRectCard" onclick="nodeclick(8)"/>
+<g id="shape8" v:mID="8" v:groupContext="shape">
+  <rect x="2571.000000" y="1145.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_8" xlink:title="Открыть меню">
+<clipPath id="cliptxt8"><rect x="2571.000000" y="1145.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt8)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2635.000000" y="1157.800000"><tspan    >Новикова </tspan></tspan><v:newlineChar/>
+  <tspan x="2635.000000" y="1169.800000"><tspan    >Галина </tspan><tspan    >Николаевна </tspan></tspan><v:newlineChar/>
+  <tspan x="2635.000000" y="1181.800000"><tspan    >10.07.1960 </tspan></tspan><v:newlineChar/>
+  <tspan x="2635.000000" y="1193.800000"><tspan  font-style="italic"  >Теща </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N23" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2345" y="780" />
+<g transform="translate(2367.700000,781.000000)">  <image clip-path="url(#test_cp23)" xlink:href="Древо предварительно.html_files\images\oldmen.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp23"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M2346.000000 800.000000 L2346.000000 810.000000 L2375.000000 781.000000 L2365.000000 781.000000 L2346.000000 800.000000 Z" stroke="black" />
+<rect x="2345" y="780" width="130" height="190" class="stRectCard" onclick="nodeclick(23)"/>
+<g id="shape23" v:mID="23" v:groupContext="shape">
+  <rect x="2346.000000" y="895.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_23" xlink:title="Открыть меню">
+<clipPath id="cliptxt23"><rect x="2346.000000" y="895.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt23)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2410.000000" y="907.800000"><tspan    >Новиков </tspan></tspan><v:newlineChar/>
+  <tspan x="2410.000000" y="919.800000"><tspan    >Ефим </tspan><tspan    >Васильевич </tspan></tspan><v:newlineChar/>
+  <tspan x="2410.000000" y="931.800000"><tspan    >20.01.1920 </tspan></tspan><v:newlineChar/>
+  <tspan x="2410.000000" y="943.800000"><tspan    >02.04.2002 </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N24" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="2495" y="780" />
+<g transform="translate(2517.700000,781.000000)">  <image clip-path="url(#test_cp24)" xlink:href="Древо предварительно.html_files\images\oldmiss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp24"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M2496.000000 800.000000 L2496.000000 810.000000 L2525.000000 781.000000 L2515.000000 781.000000 L2496.000000 800.000000 Z" stroke="black" />
+<rect x="2495" y="780" width="130" height="190" class="stRectCard" onclick="nodeclick(24)"/>
+<g id="shape24" v:mID="24" v:groupContext="shape">
+  <rect x="2496.000000" y="895.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_24" xlink:title="Открыть меню">
+<clipPath id="cliptxt24"><rect x="2496.000000" y="895.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt24)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2560.000000" y="907.800000"><tspan    >Новикова </tspan></tspan><v:newlineChar/>
+  <tspan x="2560.000000" y="919.800000"><tspan    >Алимпиада </tspan><tspan    >Захаровна </tspan></tspan><v:newlineChar/>
+  <tspan x="2560.000000" y="931.800000"><tspan    >20.03.1927 </tspan></tspan><v:newlineChar/>
+  <tspan x="2560.000000" y="943.800000"><tspan    >27.02.2005 </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N54" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2438" y="530" />
+<g transform="translate(2460.700000,531.000000)">  <image clip-path="url(#test_cp54)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp54"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M2439.000000 550.000000 L2439.000000 560.000000 L2468.000000 531.000000 L2458.000000 531.000000 L2439.000000 550.000000 Z" stroke="black" />
+<rect x="2438" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(54)"/>
+<g id="shape54" v:mID="54" v:groupContext="shape">
+  <rect x="2439.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_54" xlink:title="Открыть меню">
+<clipPath id="cliptxt54"><rect x="2439.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt54)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2503.000000" y="657.800000"><tspan    >Новиков </tspan></tspan><v:newlineChar/>
+  <tspan x="2503.000000" y="669.800000"><tspan    >Василий </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N55" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="2588" y="530" />
+<g transform="translate(2610.700000,531.000000)">  <image clip-path="url(#test_cp55)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp55"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M2589.000000 550.000000 L2589.000000 560.000000 L2618.000000 531.000000 L2608.000000 531.000000 L2589.000000 550.000000 Z" stroke="black" />
+<rect x="2588" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(55)"/>
+<g id="shape55" v:mID="55" v:groupContext="shape">
+  <rect x="2589.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_55" xlink:title="Открыть меню">
+<clipPath id="cliptxt55"><rect x="2589.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt55)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2653.000000" y="657.800000"><tspan    >Новикова </tspan></tspan><v:newlineChar/>
+  <tspan x="2653.000000" y="669.800000"><tspan    >Маришка </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N56" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2738" y="530" />
+<g transform="translate(2760.700000,531.000000)">  <image clip-path="url(#test_cp56)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp56"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M2739.000000 550.000000 L2739.000000 560.000000 L2768.000000 531.000000 L2758.000000 531.000000 L2739.000000 550.000000 Z" stroke="black" />
+<rect x="2738" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(56)"/>
+<g id="shape56" v:mID="56" v:groupContext="shape">
+  <rect x="2739.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_56" xlink:title="Открыть меню">
+<clipPath id="cliptxt56"><rect x="2739.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt56)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2803.000000" y="657.800000"><tspan    >Чуев </tspan></tspan><v:newlineChar/>
+  <tspan x="2803.000000" y="669.800000"><tspan    >Захар </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N57" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="2888" y="530" />
+<g transform="translate(2910.700000,531.000000)">  <image clip-path="url(#test_cp57)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp57"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M2889.000000 550.000000 L2889.000000 560.000000 L2918.000000 531.000000 L2908.000000 531.000000 L2889.000000 550.000000 Z" stroke="black" />
+<rect x="2888" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(57)"/>
+<g id="shape57" v:mID="57" v:groupContext="shape">
+  <rect x="2889.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_57" xlink:title="Открыть меню">
+<clipPath id="cliptxt57"><rect x="2889.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt57)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2953.000000" y="657.800000"><tspan    >Чуева </tspan></tspan><v:newlineChar/>
+  <tspan x="2953.000000" y="669.800000"><tspan    >Анастасия </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N25" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="2645" y="780" />
+<g transform="translate(2667.700000,781.000000)">  <image clip-path="url(#test_cp25)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp25"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M2646.000000 800.000000 L2646.000000 810.000000 L2675.000000 781.000000 L2665.000000 781.000000 L2646.000000 800.000000 Z" stroke="black" />
+<rect x="2645" y="780" width="130" height="190" class="stRectCard" onclick="nodeclick(25)"/>
+<g id="shape25" v:mID="25" v:groupContext="shape">
+  <rect x="2646.000000" y="895.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_25" xlink:title="Открыть меню">
+<clipPath id="cliptxt25"><rect x="2646.000000" y="895.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt25)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2710.000000" y="907.800000"><tspan    >Хрипунов </tspan></tspan><v:newlineChar/>
+  <tspan x="2710.000000" y="919.800000"><tspan    >Николай </tspan><tspan    >Алексеевич </tspan></tspan><v:newlineChar/>
+  <tspan x="2710.000000" y="931.800000"><tspan    >24.04.1928 </tspan></tspan><v:newlineChar/>
+  <tspan x="2710.000000" y="943.800000"><tspan    >09.12.1987 </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N26" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="2795" y="780" />
+<g transform="translate(2817.700000,781.000000)">  <image clip-path="url(#test_cp26)" xlink:href="Древо предварительно.html_files\images\oldmiss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp26"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M2796.000000 800.000000 L2796.000000 810.000000 L2825.000000 781.000000 L2815.000000 781.000000 L2796.000000 800.000000 Z" stroke="black" />
+<rect x="2795" y="780" width="130" height="190" class="stRectCard" onclick="nodeclick(26)"/>
+<g id="shape26" v:mID="26" v:groupContext="shape">
+  <rect x="2796.000000" y="895.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_26" xlink:title="Открыть меню">
+<clipPath id="cliptxt26"><rect x="2796.000000" y="895.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt26)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="2860.000000" y="907.800000"><tspan    >Хрипунова </tspan></tspan><v:newlineChar/>
+  <tspan x="2860.000000" y="919.800000"><tspan    >Клавдия </tspan><tspan    >Григорьевна </tspan></tspan><v:newlineChar/>
+  <tspan x="2860.000000" y="931.800000"><tspan    >21.06.1924 </tspan></tspan><v:newlineChar/>
+  <tspan x="2860.000000" y="943.800000"><tspan    >11.12.2010 </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N60" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="3038" y="530" />
+<g transform="translate(3060.700000,531.000000)">  <image clip-path="url(#test_cp60)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp60"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M3039.000000 550.000000 L3039.000000 560.000000 L3068.000000 531.000000 L3058.000000 531.000000 L3039.000000 550.000000 Z" stroke="black" />
+<rect x="3038" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(60)"/>
+<g id="shape60" v:mID="60" v:groupContext="shape">
+  <rect x="3039.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_60" xlink:title="Открыть меню">
+<clipPath id="cliptxt60"><rect x="3039.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt60)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="3103.000000" y="657.800000"><tspan    >Хрипунов </tspan></tspan><v:newlineChar/>
+  <tspan x="3103.000000" y="669.800000"><tspan    >Алексей </tspan><tspan    >Парамонович </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N61" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="3188" y="530" />
+<g transform="translate(3210.700000,531.000000)">  <image clip-path="url(#test_cp61)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp61"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M3189.000000 550.000000 L3189.000000 560.000000 L3218.000000 531.000000 L3208.000000 531.000000 L3189.000000 550.000000 Z" stroke="black" />
+<rect x="3188" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(61)"/>
+<g id="shape61" v:mID="61" v:groupContext="shape">
+  <rect x="3189.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_61" xlink:title="Открыть меню">
+<clipPath id="cliptxt61"><rect x="3189.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt61)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="3253.000000" y="657.800000"><tspan    >Хрипунова </tspan></tspan><v:newlineChar/>
+  <tspan x="3253.000000" y="669.800000"><tspan    >Надежда </tspan><tspan    >Петровна </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N58" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_M" x="3338" y="530" />
+<g transform="translate(3360.700000,531.000000)">  <image clip-path="url(#test_cp58)" xlink:href="Древо предварительно.html_files\images\men.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp58"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M3339.000000 550.000000 L3339.000000 560.000000 L3368.000000 531.000000 L3358.000000 531.000000 L3339.000000 550.000000 Z" stroke="black" />
+<rect x="3338" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(58)"/>
+<g id="shape58" v:mID="58" v:groupContext="shape">
+  <rect x="3339.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_58" xlink:title="Открыть меню">
+<clipPath id="cliptxt58"><rect x="3339.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt58)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="3403.000000" y="657.800000"><tspan    >Иванов </tspan></tspan><v:newlineChar/>
+  <tspan x="3403.000000" y="669.800000"><tspan    >Григорий </tspan><tspan    >Матвеевич </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<g class="g_node" id="N59" v:groupContext="shape" offsetx="0" offsety="0">
+   <use xlink:href="#rect_F" x="3488" y="530" />
+<g transform="translate(3510.700000,531.000000)">  <image clip-path="url(#test_cp59)" xlink:href="Древо предварительно.html_files\images\miss.png" x="0" y="0" width="84.600000" height="112.800000" preserveAspectRatio="xMidYMid meet"/> 
+ <defs>
+ <clipPath id="test_cp59"> 
+ <ellipse cx="42.300000" cy="56.400000" rx="42.300000" ry="56.400000" style="fill:none;stroke:black;stroke-width:2" /> 
+ </clipPath>
+ </defs> 
+ </g> 
+<path d="M3489.000000 550.000000 L3489.000000 560.000000 L3518.000000 531.000000 L3508.000000 531.000000 L3489.000000 550.000000 Z" stroke="black" />
+<rect x="3488" y="530" width="130" height="190" class="stRectCard" onclick="nodeclick(59)"/>
+<g id="shape59" v:mID="59" v:groupContext="shape">
+  <rect x="3489.000000" y="645.800000" width="128.000000" height="73.200000" class="stRectText"/>
+<a xlink:href="PERS_59" xlink:title="Открыть меню">
+<clipPath id="cliptxt59"><rect x="3489.000000" y="645.800000" width="128.000000" height="73.200000"/></clipPath>
+ <text class="textCard" clip-path="url(#cliptxt59)" text-anchor=""><v:paragraph v:horizAlign="1"/><v:tabList/>
+  <tspan x="3553.000000" y="657.800000"><tspan    >Иванова </tspan></tspan><v:newlineChar/>
+  <tspan x="3553.000000" y="669.800000"><tspan    >Марфа </tspan><tspan    >Даниловна </tspan></tspan><v:newlineChar/>
+</text>
+</a>
+</g>
+</g>
+<path id="SP_1_2" d="M 1425.000000 1375 H 1445.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_1" cx="1435" cy="1375" r="3.000000" class="circleTree" />
+<path id="FAM_1_3" d="M 1435 1375 V 1490 A 10,10 90 0, 1 1425 1500 H 1370 A 10,10 90 0, 0 1360 1510 V 1530.000000" class="lineTree"  /> 
+<path id="FAM_1_4" d="M 1435 1375 V 1490 A 10,10 90 0, 0 1445 1500 H 1500 A 10,10 90 0, 1 1510 1510 V 1530.000000" class="lineTree"  /> 
+<path id="SP_5_6" d="M 1575.000000 1125 H 1595.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_2" cx="1585" cy="1125" r="3.000000" class="circleTree" />
+<path id="FAM_2_1" d="M 1585 1125 V 1240 A 10,10 90 0, 1 1575 1250 H 1520 A 10,10 90 0, 0 1510 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_2_13" d="M 1585 1125 V 1240 A 10,10 90 0, 0 1595 1250 H 1650 A 10,10 90 0, 1 1660 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_14_36" d="M 1135 1220.000000 V 1240 A 10,10 90 0, 0 1145 1250 H 1200 A 10,10 90 0, 1 1210 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_14_35" d="M 1135 1220.000000 V 1240 A 10,10 90 0, 1 1125 1250 H 1070 A 10,10 90 0, 0 1060 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_18_37" d="M 910 1220.000000 L 910 1280.000000" class="lineTree"  /> 
+<path id="FAM_13_34" d="M 685 1220.000000 V 1240 A 10,10 90 0, 0 695 1250 H 750 A 10,10 90 0, 1 760 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_13_33" d="M 685 1220.000000 V 1240 A 10,10 90 0, 1 675 1250 H 620 A 10,10 90 0, 0 610 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_24_53" d="M 760 1470.000000 V 1490 A 10,10 90 0, 0 770 1500 H 825 A 10,10 90 0, 1 835 1510 V 1530.000000" class="lineTree"  /> 
+<path id="FAM_24_52" d="M 760 1470.000000 V 1490 A 10,10 90 0, 1 750 1500 H 695 A 10,10 90 0, 0 685 1510 V 1530.000000" class="lineTree"  /> 
+<path id="FAM_8_20" d="M 272 1220.000000 V 1240 A 10,10 90 0, 0 282 1250 H 450 A 10,10 90 0, 1 460 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_8_21" d="M 272 1220.000000 V 1240 A 10,10 90 0, 1 262 1250 H 245 A 10,10 90 0, 0 235 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_8_22" d="M 272 1220.000000 V 1240 A 10,10 90 0, 1 262 1250 H 95 A 10,10 90 0, 0 85 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_23_51" d="M 460 1470.000000 L 460 1530.000000" class="lineTree"  /> 
+<path id="FAM_22_49" d="M 235 1470.000000 V 1490 A 10,10 90 0, 0 245 1500 H 300 A 10,10 90 0, 1 310 1510 V 1530.000000" class="lineTree"  /> 
+<path id="FAM_22_50" d="M 235 1470.000000 V 1490 A 10,10 90 0, 1 225 1500 H 170 A 10,10 90 0, 0 160 1510 V 1530.000000" class="lineTree"  /> 
+<path id="SP_9_10" d="M 881.000000 875 H 901.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_4" cx="891" cy="875" r="3.000000" class="circleTree" />
+<path id="FAM_4_5" d="M 891 875 V 990 A 10,10 90 0, 0 901 1000 H 1500 A 10,10 90 0, 1 1510 1010 V 1030.000000" class="lineTree"  /> 
+<path id="FAM_4_30" d="M 891 875 V 990 A 10,10 90 0, 0 901 1000 H 1125 A 10,10 90 0, 1 1135 1010 V 1030.000000" class="lineTree"  /> 
+<path id="FAM_4_32" d="M 891 875 V 991 A 9,9 90 0, 0 900 1000 H 901 A 9,9 90 0, 1 910 1009 V 1030.000000" class="lineTree"  /> 
+<path id="FAM_4_31" d="M 891 875 V 990 A 10,10 90 0, 1 881 1000 H 695 A 10,10 90 0, 0 685 1010 V 1030.000000" class="lineTree"  /> 
+<path id="FAM_4_19" d="M 891 875 V 990 A 10,10 90 0, 1 881 1000 H 282 A 10,10 90 0, 0 272 1010 V 1030.000000" class="lineTree"  /> 
+<path id="SP_62_63" d="M 806.000000 625 H 826.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_30" cx="816" cy="625" r="3.000000" class="circleTree" />
+<path id="FAM_30_9" d="M 816 625 V 750 H 816 V 780.000000" class="lineTree"  /> 
+<path id="FAM_31_62" d="M 741 470.000000 L 741 530.000000" class="lineTree"  /> 
+<path id="FAM_32_64" d="M 741 220.000000 L 741 280.000000" class="lineTree"  /> 
+<path id="SP_39_38" d="M 1106.000000 625 H 1126.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_15" cx="1116" cy="625" r="3.000000" class="circleTree" />
+<path id="FAM_15_10" d="M 1116 625 V 740 A 10,10 90 0, 1 1106 750 H 976 A 10,10 90 0, 0 966 760 V 780.000000" class="lineTree"  /> 
+<path id="SP_40_41" d="M 1181.000000 375 H 1201.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_16" cx="1191" cy="375" r="3.000000" class="circleTree" />
+<path id="FAM_16_38" d="M 1191 375 V 500 H 1191 V 530.000000" class="lineTree"  /> 
+<path id="FAM_19_43" d="M 1885 1220.000000 V 1240 A 10,10 90 0, 1 1875 1250 H 1820 A 10,10 90 0, 0 1810 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_19_44" d="M 1885 1220.000000 V 1240 A 10,10 90 0, 0 1895 1250 H 1950 A 10,10 90 0, 1 1960 1260 V 1280.000000" class="lineTree"  /> 
+<path id="SP_11_12" d="M 1762.000000 875 H 1782.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_5" cx="1772" cy="875" r="3.000000" class="circleTree" />
+<path id="FAM_5_6" d="M 1772 875 V 990 A 10,10 90 0, 1 1762 1000 H 1670 A 10,10 90 0, 0 1660 1010 V 1030.000000" class="lineTree"  /> 
+<path id="FAM_5_42" d="M 1772 875 V 990 A 10,10 90 0, 0 1782 1000 H 1875 A 10,10 90 0, 1 1885 1010 V 1030.000000" class="lineTree"  /> 
+<path id="FAM_20_45" d="M 2260 970.000000 L 2260 1030.000000" class="lineTree"  /> 
+<path id="FAM_21_46" d="M 2260 1220.000000 V 1240 A 10,10 90 0, 1 2250 1250 H 2120 A 10,10 90 0, 0 2110 1260 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_21_47" d="M 2260 1220.000000 L 2260 1280.000000" class="lineTree"  /> 
+<path id="FAM_21_48" d="M 2260 1220.000000 V 1240 A 10,10 90 0, 0 2270 1250 H 2400 A 10,10 90 0, 1 2410 1260 V 1280.000000" class="lineTree"  /> 
+<path id="SP_14_15" d="M 1968.000000 625 H 1988.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_6" cx="1978" cy="625" r="3.000000" class="circleTree" />
+<path id="FAM_6_11" d="M 1978 625 V 740 A 10,10 90 0, 1 1968 750 H 1707 A 10,10 90 0, 0 1697 760 V 780.000000" class="lineTree"  /> 
+<path id="FAM_6_18" d="M 1978 625 V 740 A 10,10 90 0, 0 1988 750 H 2250 A 10,10 90 0, 1 2260 760 V 780.000000" class="lineTree"  /> 
+<path id="SP_16_17" d="M 2268.000000 625 H 2288.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_7" cx="2278" cy="625" r="3.000000" class="circleTree" />
+<path id="FAM_7_12" d="M 2278 625 V 744 A 10,10 90 0, 1 2268 754 H 1857 A 10,10 90 0, 0 1847 764 V 780.000000" class="lineTree"  /> 
+<path id="SP_29_27" d="M 2625.000000 1375 H 2645.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_11" cx="2635" cy="1375" r="3.000000" class="circleTree" />
+<path id="FAM_11_28" d="M 2635 1375 V 1500 H 2635 V 1530.000000" class="lineTree"  /> 
+<path id="SP_7_8" d="M 2550.000000 1125 H 2570.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_3" cx="2560" cy="1125" r="3.000000" class="circleTree" />
+<path id="FAM_3_2" d="M 2560 1125 V 1244 A 10,10 90 0, 1 2550 1254 H 1370 A 10,10 90 0, 0 1360 1264 V 1280.000000" class="lineTree"  /> 
+<path id="FAM_3_27" d="M 2560 1125 V 1250 H 2560 V 1280.000000" class="lineTree"  /> 
+<path id="SP_23_24" d="M 2475.000000 875 H 2495.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_9" cx="2485" cy="875" r="3.000000" class="circleTree" />
+<path id="FAM_9_7" d="M 2485 875 V 1000 H 2485 V 1030.000000" class="lineTree"  /> 
+<path id="SP_54_55" d="M 2568.000000 625 H 2588.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_26" cx="2578" cy="625" r="3.000000" class="circleTree" />
+<path id="FAM_26_23" d="M 2578 625 V 740 A 10,10 90 0, 1 2568 750 H 2420 A 10,10 90 0, 0 2410 760 V 780.000000" class="lineTree"  /> 
+<path id="SP_56_57" d="M 2868.000000 625 H 2888.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_27" cx="2878" cy="625" r="3.000000" class="circleTree" />
+<path id="FAM_27_24" d="M 2878 625 V 744 A 10,10 90 0, 1 2868 754 H 2570 A 10,10 90 0, 0 2560 764 V 780.000000" class="lineTree"  /> 
+<path id="SP_25_26" d="M 2775.000000 875 H 2795.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_10" cx="2785" cy="875" r="3.000000" class="circleTree" />
+<path id="FAM_10_8" d="M 2785 875 V 990 A 10,10 90 0, 1 2775 1000 H 2645 A 10,10 90 0, 0 2635 1010 V 1030.000000" class="lineTree"  /> 
+<path id="SP_60_61" d="M 3168.000000 625 H 3188.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_29" cx="3178" cy="625" r="3.000000" class="circleTree" />
+<path id="FAM_29_25" d="M 3178 625 V 740 A 10,10 90 0, 1 3168 750 H 2720 A 10,10 90 0, 0 2710 760 V 780.000000" class="lineTree"  /> 
+<path id="SP_58_59" d="M 3468.000000 625 H 3488.000000" class="lineBeetwenPart"  /> 
+<circle id="FAM_28" cx="3478" cy="625" r="3.000000" class="circleTree" />
+<path id="FAM_28_26" d="M 3478 625 V 744 A 10,10 90 0, 1 3468 754 H 2870 A 10,10 90 0, 0 2860 764 V 780.000000" class="lineTree"  /> 
+   </g>
+		</svg> 
+</span>
+</body>
+</html>
